@@ -19,7 +19,8 @@
             android:id="@+id/pantsImage"
             android:layout_width="259dp"
             android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_weight="2"
+            android:orientation="horizontal">
 
         </LinearLayout>
 

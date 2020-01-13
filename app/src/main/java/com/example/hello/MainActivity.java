@@ -55,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         //int code = intent.getIntExtra("code", 21);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 78456f1665524ce48f4d076844757d3ca44d3cd5
         //transaction.replace(R.id.nav_host_fragment, new DashboardFragment()).commitNow();
 
     }

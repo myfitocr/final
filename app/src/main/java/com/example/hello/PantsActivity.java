@@ -38,11 +38,13 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
     String dataPath = "";
     ArrayList<SizeClass> sizeClasses=new ArrayList<>();
     SizeClass sizeClass;
+<<<<<<< HEAD
     Button createbtn;
     Button createbn1;
     private static final int DRAW_OVER_OTHER_APP_PERMISSION_REQUEST_CODE = 1222;
+=======
+>>>>>>> 78456f1665524ce48f4d076844757d3ca44d3cd5
 
-    //ArrayList<SizeClass> sizeClasses = new ArrayList<>();
     ArrayList<String> items = new ArrayList<>();
     ArrayList<CheckBox> checkBoxes = new ArrayList<>();
 
@@ -52,6 +54,7 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
 
     ArrayList<SizeClass> unchangedSize = new ArrayList<>();
     ArrayList<SizeClass> checkedSize = new ArrayList<>();
+    ArrayList<SizeClass> unchangedSizeBase = new ArrayList<>();
 
     Bitmap b;
 
@@ -115,6 +118,7 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
 
         b = ARGBBitmap(b);
         sizeClasses=processImage(b);
+        unchangedSizeBase=sizeClasses;
 
         for (int j = 0; j < sizeClasses.size(); j++) {
             items.add(sizeClasses.get(j).getSizeName());
@@ -176,6 +180,7 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
         LinearLayout linearLayout=findViewById(R.id.pantsImage);
         ViewEx viewEx = new ViewEx(getApplicationContext(),checkedSize);
         linearLayout.addView(viewEx);
+<<<<<<< HEAD
 
         createbtn = findViewById(R.id.create2);
         createbn1 = findViewById(R.id.create3);
@@ -194,14 +199,13 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
                 createFloatingWidget2(v);
             }
         });
+=======
+>>>>>>> 78456f1665524ce48f4d076844757d3ca44d3cd5
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        //ocrActivity에서 사이즈 정보 받아오기
-        Intent i = getIntent();
-        Bundle bundle = i.getExtras();
-        unchangedSize = (ArrayList<SizeClass>) bundle.get("sizeInfo");
+        unchangedSize = unchangedSizeBase;
         checkedSize.clear();
         checkedSize.add(myFit);
 
@@ -232,24 +236,24 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
         result = tess.getUTF8Text();
 
         String target="보세요\n";
+        if(!result.contains(target)){
+            target="MY\n";
+        }
+
         int target_num=result.indexOf(target);
         String size;
         size= result.substring(target_num+4);
 
-        char endOfSize=getEndOfSize(size);
-        int endOfSize_num=size.indexOf(endOfSize);
-        String getSize=size.substring(0,endOfSize_num);
-        sizeClasses=getSizeInfo(getSize);
+        sizeClasses=getSizeInfo(size);
 
         return sizeClasses;
     }
 
+    /**추가적인 끝조건 위해서 필요하면 사용**/
     private char getEndOfSize(String size){
         for(char c:size.toCharArray()){
             if (c>=32 && c<=126 || c==10){
-            }else {
-                return c;
-            }
+            }else return c;
         }
         return 0;
     }
@@ -258,28 +262,26 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
         String[] array=getSize.split("\n");
         String[] getType=array[0].split(" ");
 
-        if(getType.length==6){//바지
-            for(int i=0;i<array.length;i++){
-                String[] getSizeInfo=array[i].split(" ");
-                sizeClass=new SizeClass(getSizeInfo[0]);
+        for(int i=0;i<array.length;i++){
+            String[] getSizeInfo=array[i].split(" ");
+            sizeClass=new SizeClass(getSizeInfo[0]);
 
-                ArrayList<Float> info=new ArrayList<>();
+            ArrayList<Float> info=new ArrayList<>();
+            if (getSizeInfo.length == 6) {
                 for(int j=1;j<getSizeInfo.length;j++){
-                    Float size= Float.parseFloat(getSizeInfo[j]);
-                    if(size>110.0){
-                        size=size/10;
-                    }
+                    Float size=Float.parseFloat(getSizeInfo[j]);
+
+                    if(size>110.0) size=size/10;
                     info.add(size);
                 }
-
                 sizeClass.setSizeInfo(info);
                 sizeClasses.add(sizeClass);
-            }
+            } else break;
         }
         return sizeClasses;
     }
 
-    private void checkFile(File dir, String lang){
+    private void checkFile(File dir,String lang){
         if(!dir.exists()&&dir.mkdirs()){
             copyFiles(lang);
         }
@@ -317,6 +319,7 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
     private Bitmap ARGBBitmap(Bitmap img) {
         return img.copy(Bitmap.Config.ARGB_8888,true);
     }
+<<<<<<< HEAD
     /*  start floating widget service  */
 
     public void createFloatingWidget1(View view) {
@@ -386,5 +389,7 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
     }
 
 
+=======
+>>>>>>> 78456f1665524ce48f4d076844757d3ca44d3cd5
 }
 
