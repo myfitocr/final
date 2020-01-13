@@ -24,10 +24,22 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/create2"
+        android:id="@+id/create2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="옷사진"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.765" />
+
+        <Button
+            android:id="@+id/create3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:text="쇼핑더"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"

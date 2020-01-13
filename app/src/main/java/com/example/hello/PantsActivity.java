@@ -39,6 +39,7 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
     ArrayList<SizeClass> sizeClasses=new ArrayList<>();
     SizeClass sizeClass;
     Button createbtn;
+    Button createbn1;
     private static final int DRAW_OVER_OTHER_APP_PERMISSION_REQUEST_CODE = 1222;
 
     //ArrayList<SizeClass> sizeClasses = new ArrayList<>();
@@ -177,10 +178,20 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
         linearLayout.addView(viewEx);
 
         createbtn = findViewById(R.id.create2);
+        createbn1 = findViewById(R.id.create3);
+
+
         createbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createFloatingWidget(v);
+                createFloatingWidget1(v);
+            }
+        });
+
+        createbn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createFloatingWidget2(v);
             }
         });
     }
@@ -308,7 +319,7 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
     }
     /*  start floating widget service  */
 
-    public void createFloatingWidget(View view) {
+    public void createFloatingWidget1(View view) {
         //Check if the application has draw over other apps permission or not?
         //This permission is by default available for API<23. But for API > 23
         //you have to ask for the permission in runtime.
@@ -321,12 +332,12 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
             startActivityForResult(intent, DRAW_OVER_OTHER_APP_PERMISSION_REQUEST_CODE);
         } else
             //If permission is granted start floating widget service
-            startFloatingWidgetService();
+            startFloatingWidgetService1();
 
     }
 
     /*  Start Floating widget service and finish current activity */
-    private void startFloatingWidgetService() {
+    private void startFloatingWidgetService1() {
         startService(new Intent(PantsActivity.this, FloatingWidgetService2.class));
         //이부분은 버튼 누르면 어플이 꺼지도록 함.
         finish();
@@ -339,7 +350,7 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
             //Check if the permission is granted or not.
             if (resultCode == RESULT_OK)
                 //If permission granted start floating widget service
-                startFloatingWidgetService();
+                startFloatingWidgetService1();
             /**else
              //Permission is not available then display toast
              Toast.makeText(this,
@@ -350,5 +361,30 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+    public void createFloatingWidget2(View view) {
+        //Check if the application has draw over other apps permission or not?
+        //This permission is by default available for API<23. But for API > 23
+        //you have to ask for the permission in runtime.
+        //getcontext 부분 수정함.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+            //If the draw over permission is not available open the settings screen
+            //to grant the permission. 권한을 받기 위한 부분
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent, DRAW_OVER_OTHER_APP_PERMISSION_REQUEST_CODE);
+        } else
+            //If permission is granted start floating widget service
+            startFloatingWidgetService2();
+
+    }
+
+    /*  Start Floating widget service and finish current activity */
+    private void startFloatingWidgetService2() {
+        startService(new Intent(PantsActivity.this, FloatingWidgetService.class));
+        //이부분은 버튼 누르면 어플이 꺼지도록 함.
+        finish();
+    }
+
+
 }
 
