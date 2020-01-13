@@ -38,10 +38,12 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
     String dataPath = "";
     ArrayList<SizeClass> sizeClasses=new ArrayList<>();
     SizeClass sizeClass;
+
     Button createbtn;
+    Button createbn1;
     private static final int DRAW_OVER_OTHER_APP_PERMISSION_REQUEST_CODE = 1222;
 
-    //ArrayList<SizeClass> sizeClasses = new ArrayList<>();
+
     ArrayList<String> items = new ArrayList<>();
     ArrayList<CheckBox> checkBoxes = new ArrayList<>();
 
@@ -51,6 +53,7 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
 
     ArrayList<SizeClass> unchangedSize = new ArrayList<>();
     ArrayList<SizeClass> checkedSize = new ArrayList<>();
+    ArrayList<SizeClass> unchangedSizeBase = new ArrayList<>();
 
     Bitmap b;
 
@@ -114,6 +117,7 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
 
         b = ARGBBitmap(b);
         sizeClasses=processImage(b);
+        unchangedSizeBase=sizeClasses;
 
         for (int j = 0; j < sizeClasses.size(); j++) {
             items.add(sizeClasses.get(j).getSizeName());
@@ -176,21 +180,30 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
         ViewEx viewEx = new ViewEx(getApplicationContext(),checkedSize);
         linearLayout.addView(viewEx);
 
+
         createbtn = findViewById(R.id.create2);
+        createbn1 = findViewById(R.id.create3);
+
+
         createbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createFloatingWidget(v);
+                createFloatingWidget1(v);
             }
         });
+
+        createbn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createFloatingWidget2(v);
+            }
+        });
+
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        //ocrActivity에서 사이즈 정보 받아오기
-        Intent i = getIntent();
-        Bundle bundle = i.getExtras();
-        unchangedSize = (ArrayList<SizeClass>) bundle.get("sizeInfo");
+        unchangedSize = unchangedSizeBase;
         checkedSize.clear();
         checkedSize.add(myFit);
 
@@ -221,24 +234,24 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
         result = tess.getUTF8Text();
 
         String target="보세요\n";
+        if(!result.contains(target)){
+            target="MY\n";
+        }
+
         int target_num=result.indexOf(target);
         String size;
         size= result.substring(target_num+4);
 
-        char endOfSize=getEndOfSize(size);
-        int endOfSize_num=size.indexOf(endOfSize);
-        String getSize=size.substring(0,endOfSize_num);
-        sizeClasses=getSizeInfo(getSize);
+        sizeClasses=getSizeInfo(size);
 
         return sizeClasses;
     }
 
+    /**추가적인 끝조건 위해서 필요하면 사용**/
     private char getEndOfSize(String size){
         for(char c:size.toCharArray()){
             if (c>=32 && c<=126 || c==10){
-            }else {
-                return c;
-            }
+            }else return c;
         }
         return 0;
     }
@@ -247,28 +260,26 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
         String[] array=getSize.split("\n");
         String[] getType=array[0].split(" ");
 
-        if(getType.length==6){//바지
-            for(int i=0;i<array.length;i++){
-                String[] getSizeInfo=array[i].split(" ");
-                sizeClass=new SizeClass(getSizeInfo[0]);
+        for(int i=0;i<array.length;i++){
+            String[] getSizeInfo=array[i].split(" ");
+            sizeClass=new SizeClass(getSizeInfo[0]);
 
-                ArrayList<Float> info=new ArrayList<>();
+            ArrayList<Float> info=new ArrayList<>();
+            if (getSizeInfo.length == 6) {
                 for(int j=1;j<getSizeInfo.length;j++){
-                    Float size= Float.parseFloat(getSizeInfo[j]);
-                    if(size>110.0){
-                        size=size/10;
-                    }
+                    Float size=Float.parseFloat(getSizeInfo[j]);
+
+                    if(size>110.0) size=size/10;
                     info.add(size);
                 }
-
                 sizeClass.setSizeInfo(info);
                 sizeClasses.add(sizeClass);
-            }
+            } else break;
         }
         return sizeClasses;
     }
 
-    private void checkFile(File dir, String lang){
+    private void checkFile(File dir,String lang){
         if(!dir.exists()&&dir.mkdirs()){
             copyFiles(lang);
         }
@@ -306,9 +317,10 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
     private Bitmap ARGBBitmap(Bitmap img) {
         return img.copy(Bitmap.Config.ARGB_8888,true);
     }
+
     /*  start floating widget service  */
 
-    public void createFloatingWidget(View view) {
+    public void createFloatingWidget1(View view) {
         //Check if the application has draw over other apps permission or not?
         //This permission is by default available for API<23. But for API > 23
         //you have to ask for the permission in runtime.
@@ -321,12 +333,12 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
             startActivityForResult(intent, DRAW_OVER_OTHER_APP_PERMISSION_REQUEST_CODE);
         } else
             //If permission is granted start floating widget service
-            startFloatingWidgetService();
+            startFloatingWidgetService1();
 
     }
 
     /*  Start Floating widget service and finish current activity */
-    private void startFloatingWidgetService() {
+    private void startFloatingWidgetService1() {
         startService(new Intent(PantsActivity.this, FloatingWidgetService2.class));
         //이부분은 버튼 누르면 어플이 꺼지도록 함.
         finish();
@@ -339,7 +351,7 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
             //Check if the permission is granted or not.
             if (resultCode == RESULT_OK)
                 //If permission granted start floating widget service
-                startFloatingWidgetService();
+                startFloatingWidgetService1();
             /**else
              //Permission is not available then display toast
              Toast.makeText(this,
@@ -350,5 +362,30 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+    public void createFloatingWidget2(View view) {
+        //Check if the application has draw over other apps permission or not?
+        //This permission is by default available for API<23. But for API > 23
+        //you have to ask for the permission in runtime.
+        //getcontext 부분 수정함.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+            //If the draw over permission is not available open the settings screen
+            //to grant the permission. 권한을 받기 위한 부분
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent, DRAW_OVER_OTHER_APP_PERMISSION_REQUEST_CODE);
+        } else
+            //If permission is granted start floating widget service
+            startFloatingWidgetService2();
+
+    }
+
+    /*  Start Floating widget service and finish current activity */
+    private void startFloatingWidgetService2() {
+        startService(new Intent(PantsActivity.this, FloatingWidgetService.class));
+        //이부분은 버튼 누르면 어플이 꺼지도록 함.
+        finish();
+    }
+
+
 }
 
