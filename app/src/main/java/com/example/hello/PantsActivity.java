@@ -38,12 +38,11 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
     String dataPath = "";
     ArrayList<SizeClass> sizeClasses=new ArrayList<>();
     SizeClass sizeClass;
-<<<<<<< HEAD
+
     Button createbtn;
     Button createbn1;
     private static final int DRAW_OVER_OTHER_APP_PERMISSION_REQUEST_CODE = 1222;
-=======
->>>>>>> 78456f1665524ce48f4d076844757d3ca44d3cd5
+
 
     ArrayList<String> items = new ArrayList<>();
     ArrayList<CheckBox> checkBoxes = new ArrayList<>();
@@ -180,7 +179,7 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
         LinearLayout linearLayout=findViewById(R.id.pantsImage);
         ViewEx viewEx = new ViewEx(getApplicationContext(),checkedSize);
         linearLayout.addView(viewEx);
-<<<<<<< HEAD
+
 
         createbtn = findViewById(R.id.create2);
         createbn1 = findViewById(R.id.create3);
@@ -199,8 +198,7 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
                 createFloatingWidget2(v);
             }
         });
-=======
->>>>>>> 78456f1665524ce48f4d076844757d3ca44d3cd5
+
     }
 
     @Override
@@ -319,7 +317,7 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
     private Bitmap ARGBBitmap(Bitmap img) {
         return img.copy(Bitmap.Config.ARGB_8888,true);
     }
-<<<<<<< HEAD
+
     /*  start floating widget service  */
 
     public void createFloatingWidget1(View view) {
@@ -389,7 +387,5 @@ public class PantsActivity extends AppCompatActivity implements CompoundButton.O
     }
 
 
-=======
->>>>>>> 78456f1665524ce48f4d076844757d3ca44d3cd5
 }
 
