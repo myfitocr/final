@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PantsActivity"
+    tools:context=".MyPantsActivity"
     android:orientation="vertical"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:background="@drawable/bottom_sheet_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,25 +17,13 @@
         android:weightSum="10">
 
         <LinearLayout
-            android:id="@+id/pantsImage"
-            android:layout_width="259dp"
             android:layout_height="match_parent"
+            android:id="@+id/save_pantsImage"
+            android:layout_width="match_parent"
             android:layout_weight="2"
             android:orientation="horizontal">
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/create2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.765" />
 
         <LinearLayout
             android:layout_height="match_parent"
@@ -46,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="S"
-                android:id="@+id/cb0">
+                android:id="@+id/save_cb0">
 
             </androidx.appcompat.widget.AppCompatCheckBox>
 
@@ -54,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="S"
-                android:id="@+id/cb1">
+                android:id="@+id/save_cb1">
 
             </androidx.appcompat.widget.AppCompatCheckBox>
 
@@ -62,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="S"
-                android:id="@+id/cb2">
+                android:id="@+id/save_cb2">
 
             </androidx.appcompat.widget.AppCompatCheckBox>
 
@@ -70,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="S"
-                android:id="@+id/cb3">
+                android:id="@+id/save_cb3">
 
             </androidx.appcompat.widget.AppCompatCheckBox>
 
@@ -78,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="S"
-                android:id="@+id/cb4">
+                android:id="@+id/save_cb4">
 
             </androidx.appcompat.widget.AppCompatCheckBox>
 
@@ -86,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="S"
-                android:id="@+id/cb5">
+                android:id="@+id/save_cb5">
 
             </androidx.appcompat.widget.AppCompatCheckBox>
 
@@ -94,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="S"
-                android:id="@+id/cb6">
+                android:id="@+id/save_cb6">
 
             </androidx.appcompat.widget.AppCompatCheckBox>
 
@@ -102,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="S"
-                android:id="@+id/cb7">
+                android:id="@+id/save_cb7">
 
             </androidx.appcompat.widget.AppCompatCheckBox>
 
@@ -110,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="S"
-                android:id="@+id/cb8">
+                android:id="@+id/save_cb8">
 
             </androidx.appcompat.widget.AppCompatCheckBox>
 
@@ -118,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="S"
-                android:id="@+id/cb9">
+                android:id="@+id/save_cb9">
 
             </androidx.appcompat.widget.AppCompatCheckBox>
 
@@ -132,76 +121,76 @@
         android:orientation="vertical"
         android:layout_weight="7">
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/sizeTable"
-                android:stretchColumns="*">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/save_sizeTable"
+            android:stretchColumns="*">
 
-                <TableRow>
+            <TableRow>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SIZE"
-                        android:gravity="center"
-                        android:id="@+id/tr0">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SIZE"
+                    android:gravity="center"
+                    android:id="@+id/save_tr0">
 
-                    </TextView>
+                </TextView>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="총장"
-                        android:gravity="center"
-                        android:id="@+id/tr1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="총장"
+                    android:gravity="center"
+                    android:id="@+id/save_tr1">
 
-                    </TextView>
+                </TextView>
 
-                    <TextView
-                        android:id="@+id/tr2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="허리단면">
+                <TextView
+                    android:id="@+id/save_tr2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="허리단면">
 
-                    </TextView>
+                </TextView>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="허벅지단면"
-                        android:gravity="center"
-                        android:id="@+id/tr3">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="허벅지단면"
+                    android:gravity="center"
+                    android:id="@+id/save_tr3">
 
-                    </TextView>
+                </TextView>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="밑위"
-                        android:gravity="center"
-                        android:id="@+id/tr4">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="밑위"
+                    android:gravity="center"
+                    android:id="@+id/save_tr4">
 
-                    </TextView>
+                </TextView>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="밑단단면"
-                        android:gravity="center"
-                        android:id="@+id/tr5">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="밑단단면"
+                    android:gravity="center"
+                    android:id="@+id/save_tr5">
 
-                    </TextView>
+                </TextView>
 
-                </TableRow>
+            </TableRow>
 
-            </TableLayout>
+        </TableLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:id="@+id/recycler_size"
-                android:layout_height="match_parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/recycler_saveSize"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
